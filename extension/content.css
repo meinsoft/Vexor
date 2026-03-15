@@ -1,0 +1,189 @@
+/* ──────────────────────────────────────────────
+   Vexor — Content Script Styles
+   Injected into Gmail to display phishing warnings
+   ────────────────────────────────────────────── */
+
+/* ── Banner container ────────────────────────── */
+.vexor-phishing-banner {
+    font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+    margin: 0 0 12px 0;
+    border-radius: 12px;
+    border-left: 4px solid #8b5cf6;
+    background: #f8f7ff;
+    box-shadow: 0 1px 4px rgba(99, 60, 180, 0.08), 0 0 0 1px rgba(139, 92, 246, 0.06);
+    overflow: hidden;
+    animation: vexor-slide-in 0.3s ease-out;
+    position: relative;
+    z-index: 100;
+}
+
+.vexor-phishing-banner.vexor-scanning {
+    background: #f5f3ff;
+    border-left-color: #8b5cf6;
+}
+
+@keyframes vexor-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Main row ────────────────────────────────── */
+.vexor-banner-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    gap: 12px;
+}
+
+.vexor-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.vexor-banner-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.vexor-banner-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.vexor-banner-level {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+    letter-spacing: 0.01em;
+}
+
+.vexor-banner-score {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 1px;
+}
+
+/* ── Toggle button ───────────────────────────── */
+.vexor-banner-toggle {
+    background: rgba(139, 92, 246, 0.08);
+    border: none;
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 10px;
+    color: #6c3fa0;
+    transition: background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+}
+
+.vexor-banner-toggle:hover {
+    background: rgba(139, 92, 246, 0.16);
+}
+
+/* ── Details panel ───────────────────────────── */
+.vexor-banner-details {
+    padding: 0 14px 12px 14px;
+    border-top: 1px solid rgba(139, 92, 246, 0.08);
+    transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.vexor-banner-details.vexor-collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: none;
+}
+
+.vexor-banner-explanation {
+    font-size: 12px;
+    color: #374151;
+    line-height: 1.5;
+    margin: 10px 0 6px 0;
+}
+
+.vexor-banner-action {
+    font-size: 12px;
+    color: #374151;
+    line-height: 1.5;
+    margin: 6px 0;
+    padding: 8px 10px;
+    background: rgba(139, 92, 246, 0.05);
+    border-radius: 8px;
+}
+
+.vexor-banner-impersonation {
+    font-size: 12px;
+    color: #E24B4A;
+    margin: 6px 0;
+    padding: 6px 10px;
+    background: rgba(226, 75, 74, 0.06);
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.vexor-banner-warning {
+    font-size: 11px;
+    margin: 4px 0;
+    padding: 4px 0;
+}
+
+.vexor-banner-warning.vexor-domain-warn {
+    color: #E24B4A;
+}
+
+.vexor-banner-warning.vexor-reply-warn {
+    color: #EF9F27;
+}
+
+/* ── Indicator chips ─────────────────────────── */
+.vexor-banner-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.vexor-indicator-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #6c3fa0;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.12);
+    letter-spacing: 0.01em;
+}
+
+/* ── Scanning spinner ────────────────────────── */
+@keyframes vexor-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vexor-spin {
+    display: inline-block;
+    animation: vexor-spin 1.2s linear infinite;
+}
