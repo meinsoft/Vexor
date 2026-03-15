@@ -1,24 +1,40 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-vexor-950: #1a0533;
-  --color-vexor-900: #2d1b69;
-  --color-vexor-800: #3b2080;
-  --color-vexor-700: #5b32a8;
-  --color-vexor-600: #6c3fa0;
-  --color-vexor-500: #8b5cf6;
-  --color-vexor-400: #a78bfa;
-  --color-vexor-300: #c084fc;
-  --color-vexor-200: #ddd6fe;
-  --color-vexor-100: #ede9fe;
-  --color-vexor-50: #f5f3ff;
+/* ── Custom auth tab styles ─────────────────── */
+@layer components {
+    .auth-tab {
+        @apply text-vexor-400/60 bg-transparent;
+    }
 
-  --color-risk-critical: #E24B4A;
-  --color-risk-high: #EF9F27;
-  --color-risk-medium: #F0C040;
-  --color-risk-low: #1D9E75;
+    .auth-tab.active {
+        @apply text-white bg-vexor-700/50;
+    }
 
-  --color-glass-bg: rgba(255, 255, 255, 0.06);
-  --color-glass-border: rgba(255, 255, 255, 0.10);
-  --color-glass-bg-hover: rgba(255, 255, 255, 0.10);
+    .nav-btn.active {
+        @apply text-vexor-300;
+    }
+
+    .nav-btn.active svg {
+        @apply text-vexor-400;
+    }
+}
+
+/* ── Custom scrollbar ───────────────────────── */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.5);
 }
