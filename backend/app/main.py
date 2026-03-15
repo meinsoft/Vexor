@@ -9,6 +9,7 @@ limiter = Limiter(key_func=get_remote_address)
 
 from app.api.analyze import router as analyze_router
 from app.api.auth_routes import router as auth_router
+from app.api.drill_routes import router as drill_router
 from app.api.health import router as health_router
 from app.api.stats import router as stats_router
 
@@ -27,4 +28,5 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(analyze_router)
 app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
+app.include_router(drill_router, prefix="/drill", tags=["Drill Simulation"])
 app.include_router(stats_router, prefix="/stats", tags=["Statistics"])

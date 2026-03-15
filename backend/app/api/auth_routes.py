@@ -1,22 +1,21 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Form, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.auth import create_access_token, hash_password, verify_password
 from app.database import User, get_db
+from app.models.schemas import LoginRequest, RegisterRequest
 
 
 router = APIRouter()
 
 
 @router.post("/register")
-def register(
-    email: str = Form(...),
-    password: str = Form(...),
-    company: str | None = Form(None),
-    db: Session = Depends(get_db),
-):
+def register(payload: RegisterRequest, db: Session = Depends(get_db)):
+    email = payload.email
+    password = payload.password
+    company = payload.company
     existing_user = db.query(User).filter(User.email == email).first()
     if existing_user is not None:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
@@ -41,11 +40,9 @@ def register(
 
 
 @router.post("/login")
-def login(
-    email: str = Form(...),
-    password: str = Form(...),
-    db: Session = Depends(get_db),
-):
+def login(payload: LoginRequest, db: Session = Depends(get_db)):
+    email = payload.email
+    password = payload.password
     user = db.query(User).filter(User.email == email).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")

@@ -7,6 +7,17 @@ class AnalyzeRequest(BaseModel):
     reply_to: str | None = None
 
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class RegisterRequest(BaseModel):
+    email: str
+    password: str
+    company: str | None = None
+
+
 class AnalyzeResponse(BaseModel):
     risk_level: str
     risk_score: int

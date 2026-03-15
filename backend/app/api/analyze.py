@@ -70,7 +70,15 @@ async def analyze(
 
     email_result = analyze_email(payload.email_body)
     url_result = scan_urls(urls)
-    entity_result = validate_entity(institution_name, domain)
+    if domain.endswith(".az"):
+        entity_result = {
+            "entity_found": False,
+            "matched_org": None,
+            "mismatch": False,
+            "confidence": 0,
+        }
+    else:
+        entity_result = validate_entity(institution_name, domain)
 
     entity_score = (
         100.0

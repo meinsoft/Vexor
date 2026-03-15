@@ -49,6 +49,31 @@ class AnalysisLog(Base):
     user: Mapped[User | None] = relationship(back_populates="analysis_logs")
 
 
+class Drill(Base):
+    __tablename__ = "drills"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    org_name: Mapped[str] = mapped_column(String, nullable=False)
+    subject: Mapped[str] = mapped_column(String, nullable=False)
+    body: Mapped[str] = mapped_column(String, nullable=False)
+    fake_domain: Mapped[str] = mapped_column(String, nullable=False)
+    target_emails: Mapped[str] = mapped_column(String, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    status: Mapped[str] = mapped_column(String, default="created", nullable=False)
+
+
+class DrillClick(Base):
+    __tablename__ = "drill_clicks"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    drill_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    target_email: Mapped[str] = mapped_column(String, nullable=False)
+    clicked: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    clicked_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    token: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+
+
 def get_db():
     db: Session = SessionLocal()
     try:
